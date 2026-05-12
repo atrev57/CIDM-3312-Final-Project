@@ -70,7 +70,7 @@ namespace CIDM_3312_Final_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookReviews", x => new { x.ReviewID, x.BookID });
+                    table.PrimaryKey("PK_BookReviews", x => new { x.BookID, x.ReviewID });
                     table.ForeignKey(
                         name: "FK_BookReviews_Books_BookID",
                         column: x => x.BookID,
@@ -86,9 +86,9 @@ namespace CIDM_3312_Final_Project.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookReviews_BookID",
+                name: "IX_BookReviews_ReviewID",
                 table: "BookReviews",
-                column: "BookID");
+                column: "ReviewID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_UserID",

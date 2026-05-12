@@ -11,5 +11,5 @@ public class Review
     [Display(Name = "Review")]
     public string ReviewText {get; set;} = string.Empty;
     
-    public List<BookReview> BookReviews {get; set;} = default!; //Nav property to BookReview
+    public List<BookReview> BookReviews { get; set; } = new List<BookReview>(); //Nav property to BookReview
 }

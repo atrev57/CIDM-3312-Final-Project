@@ -51,15 +51,15 @@ namespace CIDM_3312_Final_Project.Migrations
 
             modelBuilder.Entity("CIDM_3312_Final_Project.BookReview", b =>
                 {
-                    b.Property<int>("ReviewID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("BookID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("ReviewID", "BookID");
+                    b.Property<int>("ReviewID")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("BookID");
+                    b.HasKey("BookID", "ReviewID");
+
+                    b.HasIndex("ReviewID");
 
                     b.ToTable("BookReviews");
                 });

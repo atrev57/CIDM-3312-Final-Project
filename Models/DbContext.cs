@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<BookReview>().HasKey (b => new {b.ReviewID, b.BookID});
+        modelBuilder.Entity<BookReview>().HasKey(br => new { br.BookID, br.ReviewID });
     }
 
     public DbSet<Book> Books {get; set;}
