@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CIDM_3312_Final_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260512032850_InitialCreate")]
+    [Migration("20260512223544_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
 
             modelBuilder.Entity("CIDM_3312_Final_Project.Book", b =>
                 {
@@ -28,6 +28,10 @@ namespace CIDM_3312_Final_Project.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")

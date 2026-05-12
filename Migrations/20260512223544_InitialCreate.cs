@@ -47,6 +47,7 @@ namespace CIDM_3312_Final_Project.Migrations
                     Title = table.Column<string>(type: "TEXT", maxLength: 60, nullable: false),
                     Author = table.Column<string>(type: "TEXT", maxLength: 60, nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    ImageURL = table.Column<string>(type: "TEXT", nullable: false),
                     UserID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

@@ -23,6 +23,9 @@ public class Book
     [Display(Name = "Reading Status")]
     public StatusOptions Status {get; set;} //Dropdown box.
 
+    [Display(Name = "Book Cover")]
+    public string ImageURL {get; set;} = string.Empty;
+
     public int UserID {get; set;} //Foreign Key
     public User User {get; set;} = default!; //Nav Property to User
 

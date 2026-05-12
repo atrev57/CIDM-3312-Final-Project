@@ -1,3 +1,4 @@
+using CIDM_3312_Final_Project;
 using CIDM_3312_Final_Project.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("AppConnection")));
 
 var app = builder.Build();
+
+//Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    SeedData.Initialize(scope.ServiceProvider);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

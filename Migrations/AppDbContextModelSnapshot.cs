@@ -14,7 +14,7 @@ namespace CIDM_3312_Final_Project.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
 
             modelBuilder.Entity("CIDM_3312_Final_Project.Book", b =>
                 {
@@ -25,6 +25,10 @@ namespace CIDM_3312_Final_Project.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
