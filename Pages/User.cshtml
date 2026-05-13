@@ -32,7 +32,6 @@
         <div class="card-body">
             <h4>Edit User (ID: @Model.AppUser.UserID)</h4>
             <form method="post" asp-page-handler="Edit">
-                <!-- Crucial: This hidden field ensures the ID is sent back to the server -->
                 <input type="hidden" asp-for="AppUser.UserID" />
 
                 <div class="mb-2">
@@ -80,7 +79,7 @@
                     Edit
                 </a>
 
-                <!-- DELETE -->
+                <!-- Delete User -->
                 <form method="post"
                       asp-page-handler="Delete"
                       asp-route-id="@u.UserID"

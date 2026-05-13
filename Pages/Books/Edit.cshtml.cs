@@ -23,7 +23,7 @@ namespace CIDM_3312_Final_Project.Pages_Books
         [BindProperty]
         public Book Book { get; set; } = default!;
 
-        // Add this to hold your enum options
+        // Holds enum options
         public SelectList StatusOptionsList { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -35,7 +35,7 @@ namespace CIDM_3312_Final_Project.Pages_Books
             
             Book = book;
 
-            // Populate the dropdowns
+            // Populate dropdowns
             StatusOptionsList = new SelectList(Enum.GetValues(typeof(Book.StatusOptions)));
             ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Email");
             
@@ -44,12 +44,11 @@ namespace CIDM_3312_Final_Project.Pages_Books
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Crucial: Ignore the User navigation property so validation passes
             ModelState.Remove("Book.User");
 
             if (!ModelState.IsValid)
             {
-                // Must re-populate dropdowns if returning to the page
+                // Re-populates dropdowns if returning to the page
                 StatusOptionsList = new SelectList(Enum.GetValues(typeof(Book.StatusOptions)));
                 ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Email");
                 return Page();

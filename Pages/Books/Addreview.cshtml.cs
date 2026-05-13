@@ -50,11 +50,11 @@ public class AddReviewModel : PageModel
             return Page();
         }
 
-        // 1. Save the review first
+        //Saves the review first
         _context.Reviews.Add(Review);
         _context.SaveChanges();
 
-        // 2. Link review to book (join table)
+        //Links review to book (join table)
         var bookReview = new BookReview
         {
             BookID = SelectedBookID,

@@ -27,9 +27,9 @@ public class IndexModel : PageModel
     //Create User
     public IActionResult OnPostCreate()
     {
-        // Remove properties that aren't in the form so validation passes
+        
         ModelState.Remove("AppUser.UserID");
-        ModelState.Remove("AppUser.Books"); // <--- ADD THIS LINE
+        ModelState.Remove("AppUser.Books"); 
 
         if (!ModelState.IsValid)
         {
@@ -63,8 +63,8 @@ public class IndexModel : PageModel
     //save edits
     public IActionResult OnPostEdit()
     {
-        // Remove the Books property from validation here too
-        ModelState.Remove("AppUser.Books"); // <--- ADD THIS LINE
+        
+        ModelState.Remove("AppUser.Books"); 
 
         if (!ModelState.IsValid)
         {
