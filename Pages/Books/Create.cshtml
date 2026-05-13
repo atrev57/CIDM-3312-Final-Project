@@ -1,48 +1,71 @@
 @page
 @model CIDM_3312_Final_Project.Pages_Books.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
-        
-        <h1>Create</h1>
-        
-    <h4>Book</h4>
-    <hr />
-    <div class="row">
+@{
+    ViewData["Title"] = "Create Book";
+}
+
+<h1>Add New Title</h1>
+
+<h4>Book</h4>
+<hr />
+
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+
+        <form method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Title -->
+            <div class="form-group mb-2">
                 <label asp-for="Book.Title" class="control-label"></label>
                 <input asp-for="Book.Title" class="form-control" />
                 <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <!-- Author -->
+            <div class="form-group mb-2">
                 <label asp-for="Book.Author" class="control-label"></label>
                 <input asp-for="Book.Author" class="form-control" />
                 <span asp-validation-for="Book.Author" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <!-- Status -->
+            <div class="form-group mb-2">
                 <label asp-for="Book.Status" class="control-label"></label>
-                <select asp-for="Book.Status" class="form-control" ></select>
+
+                <select asp-for="Book.Status"
+                        class="form-control"
+                        asp-items="Model.StatusOptionsList">
+                </select>
+
                 <span asp-validation-for="Book.Status" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Book.UserID" class="control-label"></label>
-                <select asp-for="Book.UserID" class ="form-control" asp-items="ViewBag.UserID" ></select>
+
+            <!-- Username Input  -->
+            <div class="form-group mb-3">
+                <label class="control-label">Username</label>
+
+                <input asp-for="UsernameInput" class="form-control" />
+
+                <span asp-validation-for="UsernameInput" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Create
+            </button>
+
         </form>
     </div>
 </div>
 
-<div>
+<div class="mt-3">
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

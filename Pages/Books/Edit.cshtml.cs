@@ -13,9 +13,9 @@ namespace CIDM_3312_Final_Project.Pages_Books
 {
     public class EditModel : PageModel
     {
-        private readonly CIDM_3312_Final_Project.Models.AppDbContext _context;
+        private readonly AppDbContext _context;
 
-        public EditModel(CIDM_3312_Final_Project.Models.AppDbContext context)
+        public EditModel(AppDbContext context)
         {
             _context = context;
         }
@@ -23,29 +23,35 @@ namespace CIDM_3312_Final_Project.Pages_Books
         [BindProperty]
         public Book Book { get; set; } = default!;
 
+        // Add this to hold your enum options
+        public SelectList StatusOptionsList { get; set; } = default!;
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var book =  await _context.Books.FirstOrDefaultAsync(m => m.BookID == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
+            var book = await _context.Books.FirstOrDefaultAsync(m => m.BookID == id);
+            if (book == null) return NotFound();
+            
             Book = book;
-           ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Email");
+
+            // Populate the dropdowns
+            StatusOptionsList = new SelectList(Enum.GetValues(typeof(Book.StatusOptions)));
+            ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Email");
+            
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            // Crucial: Ignore the User navigation property so validation passes
+            ModelState.Remove("Book.User");
+
             if (!ModelState.IsValid)
             {
+                // Must re-populate dropdowns if returning to the page
+                StatusOptionsList = new SelectList(Enum.GetValues(typeof(Book.StatusOptions)));
+                ViewData["UserID"] = new SelectList(_context.Users, "UserID", "Email");
                 return Page();
             }
 
@@ -57,14 +63,8 @@ namespace CIDM_3312_Final_Project.Pages_Books
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookExists(Book.BookID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!BookExists(Book.BookID)) return NotFound();
+                else throw;
             }
 
             return RedirectToPage("./Index");

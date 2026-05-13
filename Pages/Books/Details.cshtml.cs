@@ -28,7 +28,9 @@ namespace CIDM_3312_Final_Project.Pages_Books
                 return NotFound();
             }
 
-            var book = await _context.Books.FirstOrDefaultAsync(m => m.BookID == id);
+            var book = await _context.Books
+            .Include(b => b.User)
+            .FirstOrDefaultAsync(m => m.BookID == id);
 
             if (book is not null)
             {

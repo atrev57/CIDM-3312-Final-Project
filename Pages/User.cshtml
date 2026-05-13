@@ -1,0 +1,104 @@
+@page
+@model CIDM_3312_Final_Project.Pages_Users.IndexModel
+
+<h2>Users</h2>
+
+<!-- Create Form -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h4>Create User</h4>
+        <form method="post" asp-page-handler="Create">
+            <div class="mb-2">
+                <label asp-for="AppUser.Username"></label>
+                <input asp-for="AppUser.Username" class="form-control" />
+                <span asp-validation-for="AppUser.Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="AppUser.Email"></label>
+                <input asp-for="AppUser.Email" class="form-control" />
+                <span asp-validation-for="AppUser.Email" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Form -->
+@if (Model.AppUser != null && Model.AppUser.UserID != 0)
+{
+    <div class="card mb-4 border-warning">
+        <div class="card-body">
+            <h4>Edit User (ID: @Model.AppUser.UserID)</h4>
+            <form method="post" asp-page-handler="Edit">
+                <!-- Crucial: This hidden field ensures the ID is sent back to the server -->
+                <input type="hidden" asp-for="AppUser.UserID" />
+
+                <div class="mb-2">
+                    <label asp-for="AppUser.Username"></label>
+                    <input asp-for="AppUser.Username" class="form-control" />
+                    <span asp-validation-for="AppUser.Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AppUser.Email"></label>
+                    <input asp-for="AppUser.Email" class="form-control" />
+                    <span asp-validation-for="AppUser.Email" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-warning">Save Changes</button>
+                <a asp-page="./Index" class="btn btn-link">Cancel</a>
+            </form>
+        </div>
+    </div>
+}
+
+<hr />
+
+<!-- Users table -->
+<h3>Existing Users</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model.Users)
+    {
+        <tr>
+            <td>@u.Username</td>
+            <td>@u.Email</td>
+            <td>
+                <!-- EDIT: Re-loads the page with the User data in the Edit form -->
+                <a asp-page-handler="Edit"
+                   asp-route-id="@u.UserID"
+                   class="btn btn-sm btn-secondary">
+                    Edit
+                </a>
+
+                <!-- DELETE -->
+                <form method="post"
+                      asp-page-handler="Delete"
+                      asp-route-id="@u.UserID"
+                      style="display:inline">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger"
+                            onclick="return confirm('Delete this user?')">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

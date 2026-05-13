@@ -64,6 +64,6 @@ public class AddReviewModel : PageModel
         _context.BookReviews.Add(bookReview);
         _context.SaveChanges();
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("/Index");
     }
 }
